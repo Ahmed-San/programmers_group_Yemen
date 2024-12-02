@@ -26,9 +26,46 @@
                                 <label for="password" class="form-label">كلمة المرور</label>
                                 <input type="password" class="form-control" id="password" required>
                             </div>
-                            <button type="submit" class="btn btn-primary w-100">دخول</button>
+                            <button type="submit" class="btn btn-primary w-100">تسجيل الدخول</button>
                         </form>
-                        <div id="error" class="alert alert-danger mt-3" style="display: none;"></div>
+                        <hr>
+                        <div class="text-center">
+                            <button class="btn btn-outline-primary" onclick="toggleForms()">إنشاء حساب جديد</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نموذج إنشاء الحساب -->
+    <div class="container mt-5" id="signupContainer" style="display: none;">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-center">إنشاء حساب جديد</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="signupForm">
+                            <div class="mb-3">
+                                <label for="signupEmail" class="form-label">البريد الإلكتروني</label>
+                                <input type="email" class="form-control" id="signupEmail" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="signupPassword" class="form-label">كلمة المرور</label>
+                                <input type="password" class="form-control" id="signupPassword" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirmPassword" class="form-label">تأكيد كلمة المرور</label>
+                                <input type="password" class="form-control" id="confirmPassword" required>
+                            </div>
+                            <button type="submit" class="btn btn-success w-100">إنشاء الحساب</button>
+                        </form>
+                        <hr>
+                        <div class="text-center">
+                            <button class="btn btn-outline-secondary" onclick="toggleForms()">العودة لتسجيل الدخول</button>
+                        </div>
                     </div>
                 </div>
             </div>
