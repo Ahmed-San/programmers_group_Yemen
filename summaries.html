@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الملخصات - المنصة التعليمية</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- القائمة العلوية -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">المنصة التعليمية</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">الرئيسية</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="summaries.html">الملخصات</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="books.html">الكتب</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="lectures.html">المحاضرات</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <button class="btn btn-light me-2" id="loginBtn">تسجيل الدخول</button>
+                    <button class="btn btn-outline-light" id="registerBtn">إنشاء حساب</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- قسم التصفية والبحث -->
+    <section class="filter-section py-4 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <select class="form-select mb-3">
+                        <option selected>اختر المادة</option>
+                        <option>الرياضيات</option>
+                        <option>العلوم</option>
+                        <option>اللغة العربية</option>
+                        <option>اللغة الإنجليزية</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-select mb-3">
+                        <option selected>المستوى الدراسي</option>
+                        <option>المرحلة الابتدائية</option>
+                        <option>المرحلة المتوسطة</option>
+                        <option>المرحلة الثانوية</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" class="form-control mb-3" placeholder="ابحث في الملخصات...">
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-primary w-100">بحث</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قائمة الملخصات -->
+    <section class="summaries-section py-5">
+        <div class="container">
+            <div class="row">
+                <!-- ملخص -->
+                <div class="col-md-4 mb-4">
+                    <div class="card summary-card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <h5 class="card-title">ملخص الجبر - الفصل الأول</h5>
+                                <span class="badge bg-primary">الرياضيات</span>
+                            </div>
+                            <p class="card-text">ملخص شامل لمادة الجبر يغطي المعادلات والمصفوفات</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">تم النشر: 2024/1/15</small>
+                                <div class="rating">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="far fa-star text-warning"></i>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary w-100 mt-3">تحميل الملخص</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ملخص -->
+                <div class="col-md-4 mb-4">
+                    <div class="card summary-card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <h5 class="card-title">ملخص النحو - الأفعال</h5>
+                                <span class="badge bg-success">اللغة العربية</span>
+                            </div>
+                            <p class="card-text">ملخص قواعد النحو العربي - باب الأفعال وتصريفها</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">تم النشر: 2024/1/10</small>
+                                <div class="rating">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star-half-alt text-warning"></i>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary w-100 mt-3">تحميل الملخص</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ملخص -->
+                <div class="col-md-4 mb-4">
+                    <div class="card summary-card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <h5 class="card-title">ملخص الفيزياء - الحركة</h5>
+                                <span class="badge bg-info">العلوم</span>
+                            </div>
+                            <p class="card-text">ملخص شامل لقوانين الحركة ونظريات نيوتن</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">تم النشر: 2024/1/5</small>
+                                <div class="rating">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary w-100 mt-3">تحميل الملخص</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- أزرار التنقل بين الصفحات -->
+            <nav class="mt-4">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">السابق</a>
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">التالي</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </section>
+
+    <footer class="bg-dark text-light py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>عن المنصة</h5>
+                    <p>منصة تعليمية متكاملة لمشاركة الموارد التعليمية بين الطلاب والمعلمين</p>
+                </div>
+                <div class="col-md-6">
+                    <h5>روابط سريعة</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light">الشروط والأحكام</a></li>
+                        <li><a href="#" class="text-light">سياسة الخصوصية</a></li>
+                        <li><a href="#" class="text-light">اتصل بنا</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
