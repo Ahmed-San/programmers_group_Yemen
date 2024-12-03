@@ -1,4 +1,4 @@
-import { Client, Account, Databases, Storage, ID } from 'appwrite';
+import { Client, Account, Databases, Storage, Teams, ID } from 'appwrite';
 
 // تهيئة العميل
 const client = new Client()
@@ -9,6 +9,7 @@ const client = new Client()
 const account = new Account(client);
 const databases = new Databases(client);
 const storage = new Storage(client);
+const teams = new Teams(client);
 
 // معرفات قواعد البيانات والمجموعات
 const DATABASE_ID = 'educational_resources';
@@ -98,6 +99,7 @@ export {
     account, 
     databases, 
     storage,
+    teams,
     DATABASE_ID,
     SUMMARIES_COLLECTION_ID,
     CATEGORIES_COLLECTION_ID,

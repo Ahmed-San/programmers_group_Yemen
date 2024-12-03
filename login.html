@@ -40,14 +40,14 @@
         <div class="auth-container">
             <div id="loginForm">
                 <h2 class="text-center mb-4">تسجيل الدخول</h2>
-                <form onsubmit="login(event)">
+                <form id="loginFormElement" onsubmit="login(event)">
                     <div class="mb-3">
                         <label for="loginEmail" class="form-label">البريد الإلكتروني</label>
-                        <input type="email" class="form-control" id="loginEmail" required>
+                        <input type="email" class="form-control" id="loginEmail" name="email" required>
                     </div>
                     <div class="mb-3">
                         <label for="loginPassword" class="form-label">كلمة المرور</label>
-                        <input type="password" class="form-control" id="loginPassword" required>
+                        <input type="password" class="form-control" id="loginPassword" name="password" required>
                     </div>
                     <button type="submit" class="btn btn-primary w-100">دخول</button>
                     <div id="loginError" class="error-message"></div>
@@ -60,18 +60,18 @@
 
             <div id="signupForm" style="display: none;">
                 <h2 class="text-center mb-4">إنشاء حساب جديد</h2>
-                <form onsubmit="signup(event)">
+                <form id="signupFormElement" onsubmit="signup(event)">
                     <div class="mb-3">
                         <label for="signupName" class="form-label">الاسم</label>
-                        <input type="text" class="form-control" id="signupName" required>
+                        <input type="text" class="form-control" id="signupName" name="name" required>
                     </div>
                     <div class="mb-3">
                         <label for="signupEmail" class="form-label">البريد الإلكتروني</label>
-                        <input type="email" class="form-control" id="signupEmail" required>
+                        <input type="email" class="form-control" id="signupEmail" name="email" required>
                     </div>
                     <div class="mb-3">
                         <label for="signupPassword" class="form-label">كلمة المرور</label>
-                        <input type="password" class="form-control" id="signupPassword" 
+                        <input type="password" class="form-control" id="signupPassword" name="password"
                                required minlength="8" 
                                pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
                                title="يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل، وتتضمن حروفاً وأرقاماً">

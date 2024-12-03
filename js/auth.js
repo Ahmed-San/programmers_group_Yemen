@@ -1,8 +1,13 @@
-import { account, client } from './appwrite-config.js';
+import { account } from './appwrite-config.js';
 import { ID } from 'appwrite';
 
 // دالة تسجيل الدخول
-async function login(email, password) {
+async function handleLogin(event) {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.querySelector('[name="email"]').value;
+    const password = form.querySelector('[name="password"]').value;
+
     try {
         await account.createEmailSession(email, password);
         const user = await account.get();
@@ -10,22 +15,31 @@ async function login(email, password) {
             window.location.href = './index.html';
         }
     } catch (error) {
-        showError('login', 'فشل تسجيل الدخول: ' + error.message);
+        showError('loginError', 'فشل تسجيل الدخول: ' + error.message);
     }
 }
 
 // دالة إنشاء حساب جديد
-async function signup(email, password, name) {
+async function handleSignup(event) {
+    event.preventDefault();
+    const form = event.target;
+    const name = form.querySelector('[name="name"]').value;
+    const email = form.querySelector('[name="email"]').value;
+    const password = form.querySelector('[name="password"]').value;
+
     try {
         await account.create(ID.unique(), email, password, name);
-        await login(email, password);
+        await handleLogin({ 
+            preventDefault: () => {},
+            target: form
+        });
     } catch (error) {
-        showError('signup', 'فشل إنشاء الحساب: ' + error.message);
+        showError('signupError', 'فشل إنشاء الحساب: ' + error.message);
     }
 }
 
 // دالة تسجيل الخروج
-async function logout() {
+async function handleLogout() {
     try {
         await account.deleteSession('current');
         window.location.href = './index.html';
@@ -45,63 +59,28 @@ async function checkAuth() {
 }
 
 // دالة إظهار رسائل الخطأ
-function showError(form, message) {
-    const errorDiv = document.createElement('div');
-    errorDiv.className = 'alert alert-danger mt-3';
-    errorDiv.textContent = message;
-    
-    const activeForm = document.querySelector(`#${form}Form`);
-    activeForm.insertAdjacentElement('afterend', errorDiv);
-}
-
-// تصدير الدوال
-window.login = login;
-window.signup = signup;
-window.logout = logout;
-window.checkAuth = checkAuth;
-
-// استدعاء دالة التحقق من حالة تسجيل الدخول
-checkAuth();
-
-// تبديل بين نماذج تسجيل الدخول وإنشاء الحساب
-function toggleForms(form) {
-    const loginForm = document.getElementById('loginForm');
-    const signupForm = document.getElementById('signupForm');
-    const loginError = document.getElementById('loginError');
-    const signupError = document.getElementById('signupError');
-
-    if (form === 'signup') {
-        loginForm.style.display = 'none';
-        signupForm.style.display = 'block';
-    } else {
-        loginForm.style.display = 'block';
-        signupForm.style.display = 'none';
+function showError(elementId, message) {
+    const errorElement = document.getElementById(elementId);
+    if (errorElement) {
+        errorElement.textContent = message;
+        errorElement.style.display = 'block';
     }
-
-    // مسح رسائل الخطأ عند التبديل
-    loginError.style.display = 'none';
-    loginError.textContent = '';
-    signupError.style.display = 'none';
-    signupError.textContent = '';
 }
 
-// تسجيل الدخول
-document.getElementById('loginForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = document.getElementById('loginEmail').value;
-    const password = document.getElementById('loginPassword').value;
-    await login(email, password);
+// إضافة مستمعي الأحداث عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', () => {
+    const loginForm = document.getElementById('loginFormElement');
+    const signupForm = document.getElementById('signupFormElement');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    loginForm?.addEventListener('submit', handleLogin);
+    signupForm?.addEventListener('submit', handleSignup);
+    logoutBtn?.addEventListener('click', handleLogout);
+
+    // التحقق من حالة تسجيل الدخول
+    checkAuth().then(user => {
+        if (user && window.location.pathname.includes('login.html')) {
+            window.location.href = './index.html';
+        }
+    });
 });
-
-// إنشاء حساب جديد
-document.getElementById('signupForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = document.getElementById('signupEmail').value;
-    const password = document.getElementById('signupPassword').value;
-    const name = document.getElementById('signupName').value;
-
-    await signup(email, password, name);
-});
-
-// جعل دالة toggleForms متاحة عالمياً
-window.toggleForms = toggleForms;
