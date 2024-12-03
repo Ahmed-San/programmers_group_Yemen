@@ -1,5 +1,21 @@
+import { client, account, databases, storage } from './appwrite-config.js';
+import { ID } from 'appwrite';
+import { Query } from 'appwrite';
+
 // إعداد النماذج
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
+    try {
+        // التحقق من حالة تسجيل الدخول
+        const user = await account.get();
+        if (user) {
+            document.getElementById('loginBtn').style.display = 'none';
+            document.getElementById('userMenu').style.display = 'block';
+            document.getElementById('userName').textContent = user.name;
+        }
+    } catch (error) {
+        console.error('خطأ في التحقق من حالة تسجيل الدخول:', error);
+    }
+
     // تهيئة نماذج Bootstrap
     const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
     
@@ -8,27 +24,55 @@ document.addEventListener('DOMContentLoaded', function() {
     const registerBtn = document.getElementById('registerBtn');
     
     // إظهار نموذج تسجيل الدخول
-    loginBtn.addEventListener('click', () => {
+    loginBtn?.addEventListener('click', () => {
         loginModal.show();
     });
 
     // معالجة نموذج تسجيل الدخول
     const loginForm = document.getElementById('loginForm');
-    loginForm.addEventListener('submit', (e) => {
+    loginForm?.addEventListener('submit', async (e) => {
         e.preventDefault();
-        // هنا يمكن إضافة منطق تسجيل الدخول
-        console.log('تم إرسال نموذج تسجيل الدخول');
+        const email = loginForm.querySelector('[name="email"]').value;
+        const password = loginForm.querySelector('[name="password"]').value;
+        
+        try {
+            await account.createEmailSession(email, password);
+            window.location.reload();
+        } catch (error) {
+            showError('login', error.message);
+        }
     });
 
     // البحث
     const searchInput = document.querySelector('.search-box input');
     const searchBtn = document.querySelector('.search-box button');
     
-    searchBtn.addEventListener('click', () => {
+    searchBtn?.addEventListener('click', async () => {
         const searchTerm = searchInput.value.trim();
         if (searchTerm) {
-            // هنا يمكن إضافة منطق البحث
-            console.log('البحث عن:', searchTerm);
+            try {
+                const summaries = await databases.listDocuments(
+                    'educational_resources',
+                    'summaries',
+                    [
+                        Query.search('title', searchTerm)
+                    ]
+                );
+                displaySearchResults(summaries.documents);
+            } catch (error) {
+                console.error('خطأ في البحث:', error);
+            }
+        }
+    });
+
+    // تسجيل الخروج
+    const logoutBtn = document.getElementById('logoutBtn');
+    logoutBtn?.addEventListener('click', async () => {
+        try {
+            await account.deleteSession('current');
+            window.location.reload();
+        } catch (error) {
+            console.error('خطأ في تسجيل الخروج:', error);
         }
     });
 
@@ -89,13 +133,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // تحميل الملخص
         document.querySelectorAll('.summary-card button').forEach(button => {
-            button.addEventListener('click', function(e) {
+            button.addEventListener('click', async function(e) {
                 e.preventDefault();
                 const card = this.closest('.card');
                 const title = card.querySelector('.card-title').textContent;
                 
-                // هنا يمكن إضافة منطق التحميل
-                alert(`جاري تحميل: ${title}`);
+                try {
+                    const file = await storage.getFile('educational_resources', title);
+                    const fileUrl = await storage.getFileView('educational_resources', file.$id);
+                    window.open(fileUrl, '_blank');
+                } catch (error) {
+                    console.error('خطأ في تحميل الملخص:', error);
+                }
             });
         });
 
@@ -103,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.rating').forEach(rating => {
             const stars = rating.querySelectorAll('i');
             stars.forEach((star, index) => {
-                star.addEventListener('click', () => {
+                star.addEventListener('click', async () => {
                     stars.forEach((s, i) => {
                         if (i <= index) {
                             s.className = 'fas fa-star text-warning';
@@ -111,6 +160,19 @@ document.addEventListener('DOMContentLoaded', function() {
                             s.className = 'far fa-star text-warning';
                         }
                     });
+                    try {
+                        const summaryId = rating.closest('.card').getAttribute('data-id');
+                        await databases.updateDocument(
+                            'educational_resources',
+                            'summaries',
+                            ID.unique(),
+                            {
+                                rating: index + 1
+                            }
+                        );
+                    } catch (error) {
+                        console.error('خطأ في تقييم الملخص:', error);
+                    }
                 });
             });
         });
@@ -125,3 +187,27 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('.filter-section button').addEventListener('click', filterSummaries);
     }
 });
+
+// عرض رسالة الخطأ
+function showError(formId, message) {
+    const form = document.getElementById(formId);
+    const errorElement = form.querySelector('.error-message');
+    errorElement.textContent = message;
+    errorElement.style.display = 'block';
+}
+
+// عرض نتائج البحث
+function displaySearchResults(results) {
+    const searchResultsElement = document.getElementById('searchResults');
+    searchResultsElement.innerHTML = '';
+    results.forEach(result => {
+        const card = document.createElement('div');
+        card.classList.add('card');
+        card.innerHTML = `
+            <h5 class="card-title">${result.title}</h5>
+            <p class="card-text">${result.description}</p>
+            <button class="btn btn-primary">تحميل</button>
+        `;
+        searchResultsElement.appendChild(card);
+    });
+}
