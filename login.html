@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - منصة الملخصات التعليمية</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .auth-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .auth-toggle {
+            cursor: pointer;
+            color: #0d6efd;
+        }
+        .auth-toggle:hover {
+            text-decoration: underline;
+        }
+        .error-message {
+            display: none;
+            color: #dc3545;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f8d7da;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="auth-container">
+            <div id="loginForm">
+                <h2 class="text-center mb-4">تسجيل الدخول</h2>
+                <form onsubmit="login(event)">
+                    <div class="mb-3">
+                        <label for="loginEmail" class="form-label">البريد الإلكتروني</label>
+                        <input type="email" class="form-control" id="loginEmail" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="loginPassword" class="form-label">كلمة المرور</label>
+                        <input type="password" class="form-control" id="loginPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">دخول</button>
+                    <div id="loginError" class="error-message"></div>
+                </form>
+                <p class="text-center mt-3">
+                    ليس لديك حساب؟
+                    <span class="auth-toggle" onclick="toggleForms('signup')">إنشاء حساب جديد</span>
+                </p>
+            </div>
+
+            <div id="signupForm" style="display: none;">
+                <h2 class="text-center mb-4">إنشاء حساب جديد</h2>
+                <form onsubmit="signup(event)">
+                    <div class="mb-3">
+                        <label for="signupName" class="form-label">الاسم</label>
+                        <input type="text" class="form-control" id="signupName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="signupEmail" class="form-label">البريد الإلكتروني</label>
+                        <input type="email" class="form-control" id="signupEmail" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="signupPassword" class="form-label">كلمة المرور</label>
+                        <input type="password" class="form-control" id="signupPassword" 
+                               required minlength="8" 
+                               pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+                               title="يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل، وتتضمن حروفاً وأرقاماً">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">إنشاء حساب</button>
+                    <div id="signupError" class="error-message"></div>
+                </form>
+                <p class="text-center mt-3">
+                    لديك حساب بالفعل؟
+                    <span class="auth-toggle" onclick="toggleForms('login')">تسجيل الدخول</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@11.0.0"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script>
+        function toggleForms(form) {
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            const loginError = document.getElementById('loginError');
+            const signupError = document.getElementById('signupError');
+
+            if (form === 'signup') {
+                loginForm.style.display = 'none';
+                signupForm.style.display = 'block';
+            } else {
+                loginForm.style.display = 'block';
+                signupForm.style.display = 'none';
+            }
+
+            // مسح رسائل الخطأ عند التبديل
+            loginError.style.display = 'none';
+            loginError.textContent = '';
+            signupError.style.display = 'none';
+            signupError.textContent = '';
+        }
+
+        function showError(formType, message) {
+            const errorElement = document.getElementById(`${formType}Error`);
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+        }
+
+        window.toggleForms = toggleForms;
+        window.showError = showError;
+    </script>
+</body>
+</html>

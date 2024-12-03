@@ -1,0 +1,171 @@
+/* التنسيقات العامة */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* تنسيق القائمة العلوية */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+/* تنسيق قسم البحث */
+.search-section {
+    background: linear-gradient(135deg, #0d6efd 0%, #0dcaf0 100%);
+    padding: 4rem 0;
+}
+
+.search-box {
+    text-align: center;
+}
+
+.search-box input {
+    border-radius: 50px;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+}
+
+.search-box button {
+    border-radius: 50px;
+    padding: 0.75rem 3rem;
+}
+
+/* تنسيق البطاقات */
+.category-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    height: 100%;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.category-card .card-body {
+    padding: 2rem;
+}
+
+.category-card i {
+    color: #0d6efd;
+    margin-bottom: 1rem;
+}
+
+.category-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* تنسيق النماذج */
+.modal-content {
+    border-radius: 15px;
+}
+
+.modal-header {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.modal-body {
+    padding: 2rem;
+}
+
+/* تنسيق الأزرار */
+.btn {
+    border-radius: 50px;
+    padding: 0.5rem 1.5rem;
+}
+
+/* تنسيق التذييل */
+footer {
+    margin-top: auto;
+}
+
+footer a {
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #0dcaf0 !important;
+}
+
+/* تنسيقات صفحة الملخصات */
+.filter-section {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.summary-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.summary-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.summary-card .card-body {
+    padding: 1.5rem;
+}
+
+.summary-card .badge {
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-weight: 500;
+}
+
+.summary-card .rating {
+    font-size: 0.9rem;
+}
+
+.summary-card .card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.pagination .page-link {
+    border-radius: 50%;
+    margin: 0 0.2rem;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+/* تحسينات للأجهزة المحمولة */
+@media (max-width: 768px) {
+    .search-box input {
+        font-size: 1rem;
+        padding: 0.75rem 1.5rem;
+    }
+
+    .category-card {
+        margin-bottom: 1rem;
+    }
+
+    .filter-section .form-select,
+    .filter-section .form-control {
+        margin-bottom: 1rem;
+    }
+    
+    .summary-card {
+        margin-bottom: 1rem;
+    }
+}
